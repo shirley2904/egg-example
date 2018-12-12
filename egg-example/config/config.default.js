@@ -1,7 +1,11 @@
 'use strict';
 
 module.exports = appInfo => {
-  const config = exports = {};
+  const config = exports = {
+    jsonp: {
+      csrf: true,
+    },
+  };
   config.mysql = {
     client: {
       host: 'localhost',
@@ -13,6 +17,8 @@ module.exports = appInfo => {
     app: true,
     agent: false
   };
+
+
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1543475414632_3825';
