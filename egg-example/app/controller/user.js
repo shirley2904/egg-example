@@ -8,13 +8,13 @@ class UserController extends Controller {
   }
   async add() {
     const ctx = this.ctx;
-    const age = ctx.params.age;
+    const age = ctx.request.body.age;
     console.log(age);
-    const name = ctx.params.name;
+    const name = ctx.request.body.name;
     console.log(name);
-    // const user = await ctx.service.user.insert(userId);
-    // ctx.body = user;
+    const user = await ctx.service.user.insert(name,age);
+    ctx.body = user;
   }
-}//http://127.0.0.1:7001/user?name='ss'&age=1
+}
 
 module.exports = UserController;
