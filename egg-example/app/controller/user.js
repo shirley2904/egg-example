@@ -6,20 +6,34 @@ class UserController extends Controller {
     const user = await ctx.service.user.find(userId);
     ctx.body = user;
   }
+  
   async add() {
+    const query = this.ctx.request.body;
+    let age = query.age;
+    let name = query.name;
+    console.log(name)
+    const user = await this.ctx.service.user.insert(name,age);
 
-    this.ctx.body = {
-      name: this.ctx.request.body.name,
-      age: this.ctx.request.body.age
-    }
+    this.ctx.body = user
+  }
 
-    const ctx = this.ctx;
-    const age = ctx.request.body.age;
-    console.log(age);
-    const name = ctx.request.body.name;
-    console.log(name);
-    // const user = await ctx.service.user.insert(name,age);
-    // ctx.body = user;     Content-Type   application/json
+  async update() {
+    const query = this.ctx.request.body;
+    let age = query.age;
+    let name = query.name;
+    console.log(name)
+    const user = await this.ctx.service.user.update(name,age);
+
+    this.ctx.body = user
+  }
+
+  async del() {
+    const query = this.ctx.request.body;
+    let name = query.name;
+    console.log(name)
+    const user = await this.ctx.service.user.del(name);
+
+    this.ctx.body = user
   }
 }
 

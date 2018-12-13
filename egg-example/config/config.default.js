@@ -1,22 +1,33 @@
 'use strict';
+const mongoose = require('mongoose');
 
 module.exports = appInfo => {
   const config = exports = {
     jsonp: {
       csrf: true,
     },
+    mongoose:{
+      url: 'mongodb://127.0.0.1:27017/news',
+      options: {},
+    }
   };
-  config.mysql = {
-    client: {
-      host: 'localhost',
-      port: '3306',
-      user: 'root',
-      password: '123456',
-      database: 'news'
-    },
-    app: true,
-    agent: false
-  };
+  // config.mysql = {
+  //   client: {
+  //     host: 'localhost',
+  //     port: '3306',
+  //     user: 'root',
+  //     password: '123456',
+  //     database: 'news'
+  //   },
+  //   app: true,
+  //   agent: false
+  // };
+
+
+  // exports.mongoose = {
+  //   url: 'mongodb://127.0.0.1:27017/news',
+  //   options: {},
+  // };
 
 
 
