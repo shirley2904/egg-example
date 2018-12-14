@@ -24,10 +24,15 @@ module.exports = appInfo => {
   // };
 
 
-  // exports.mongoose = {
-  //   url: 'mongodb://127.0.0.1:27017/news',
-  //   options: {},
-  // };
+
+  module.exports = config => {
+    const exports = {};
+    exports.oAuth2Server = {
+      debug: config.env === 'local',
+      grants: [ 'password' ],
+    };
+    return exports;
+  };
 
 
 

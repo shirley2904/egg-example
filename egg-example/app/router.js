@@ -10,4 +10,19 @@ module.exports = app => {
   router.post('/add',controller.user.add);
   router.post('/update',controller.user.update);
   router.post('/del',controller.user.del);
+
+  //获取密钥
+  router.all('/authorization',controller.authorization.index);
+  //登录
+  router.all('/login',app.oAuth2Server.token());
+
+
+  // app.all('/user/token', app.oAuth2Server.token());
+  // app.get('/user/authorize', app.oAuth2Server.authorize(), 'user.code');
+  // app.get('/user/authenticate', app.oAuth2Server.authenticate(), 'user.authenticate');
+
+  // router.get('/', controller.home.index);
+  // router.get('/profile', controller.user.index);
+  // router.post('/login', controller.login.index);
+ 
 };

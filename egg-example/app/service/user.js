@@ -9,30 +9,30 @@ class UserService extends Service {
     return { user };
   }
   //插入
-  async insert(name,age) {
+  async insert(username,password) {
     let { ctx } = this;
 
     const user = await ctx.model.User.create({
-        name:name,
-        age:age
+        username:username,
+        password:password
     });
     return { user };
   }
   //更新
-  async update(name,age) {
+  async update(username,password) {
     let { ctx } = this;
 
-    const user = await ctx.model.User.update({name:"6"},{
-      name:name,
-      age:age
+    const user = await ctx.model.User.update({username:"6"},{
+      username:username,
+      password:password
     });
     return { user };
   }
   //删除
-  async del(name) {
+  async del(username) {
     let { ctx } = this;
 
-    const user = await ctx.model.User.remove({name:name});
+    const user = await ctx.model.User.remove({username:username});
     return { user };
   }
 }

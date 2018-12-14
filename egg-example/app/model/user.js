@@ -3,8 +3,8 @@ module.exports = app => {
     const Schema = mongoose.Schema;
 
     const UserSchema = new Schema({
-        name:{type:String},
-        age:{type:Number}
+        username:{type:String},
+        password:{type:String},
     });
 
     return mongoose.model('User',UserSchema,'student');
