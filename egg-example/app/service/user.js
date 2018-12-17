@@ -2,12 +2,20 @@
 const Service = require('egg').Service;
 class UserService extends Service {
   //查找
-  async find(uid) {
+  async findById(uid) {
     let { ctx } = this;
-    const user = await ctx.model.User.find({_id:uid});
-    console.log(user)
+    const user = await ctx.model.User.find({user_id:uid});
+    // console.log(user)
     return { user };
   }
+
+  async findByName(uname) {
+    let { ctx } = this;
+    const user = await ctx.model.User.find({username:uname});
+    // console.log(user)
+    return { user };
+  }
+
   //插入
   async insert(username,password) {
     let { ctx } = this;

@@ -7,18 +7,18 @@ class LoginController extends Controller{
         const ctx = this.ctx;
 
         
-        const token = {
-            "user_id":1,
-            "user_name":ctx.request.body.username,
-            "expiresIn":8000,
-            "value":"pipi"
-        }
+        // const token = {
+        //     "user_id":1,
+        //     "user_name":ctx.request.body.username,
+        //     "expiresIn":8000,
+        //     "value":"pipi"
+        // }
 
         
-        ctx.body = {
-            token:token
-        };
-        ctx.status = 200;
+        // ctx.body = {
+        //     token:token
+        // };
+        // ctx.status = 200;
     }
 }
 
