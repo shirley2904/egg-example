@@ -13,6 +13,21 @@ exports.mongoose = {
 };
 
 exports.oAuth2Server = {
-  enable: true,
+  enable: false,
   package: 'egg-oauth2-server',
+};
+
+module.exports.passport = {
+  enable: true,
+  package: 'egg-passport',
+};
+
+module.exports.passportLocal = {
+  enable: true,
+  package: 'passport-local',
+};
+
+exports.cors = {
+  enable: false,
+  package: 'egg-cors',
 };

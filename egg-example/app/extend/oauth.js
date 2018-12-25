@@ -14,7 +14,7 @@ module.export = app =>{
                 console.log("1"+clientId)
                 console.log("-------------------")
                 console.log("2"+clientSecret)
-                const client = await this.ctx.Model.Client.getClient(clientId, clientSecret);
+                const client = await this.ctx.model.Client.findOne({clientId:clientId, clientSecret:clientId});
                 if(!client){
                     return false;
                 }
@@ -33,33 +33,34 @@ module.export = app =>{
             //const user = nconf.get('user');
             console.log("3"+username)
             console.log("4"+password)
-            const user = await ctx.model.User.find({username:uname});
+            const user = await ctx.model.User.find({username:uname,password:password});
 
             if (username !== user.username || password !== user.password) {
               return;
             }
-            return { userId: user.user_id };
+            return user
         }
 
         async getAccessToken(bearerToken) {
             // const token = nconf.get('token');
-            try {
-                const user = await ctx.model.AccessToken.getAccessToken(bearerToken);
-                if (!token) return
-                return {
-                    accessToken: token.accessToken,
-                    accessTokenExpiresAt: token.accessTokenExpiresAt,
-                    scope: token.scope,
-                    client: {
-                        id: token.clientId
-                    },
-                    user: {
-                        id: token.userId
-                    }
-                }
-            } catch (err) {
-                return false
-            }
+            // try {
+            //     console.log(bearerToken);
+            //     const user = await ctx.model.AccessToken.find(bearerToken);
+            //     if (!token) return
+            //     return {
+            //         accessToken: token.accessToken,
+            //         accessTokenExpiresAt: token.accessTokenExpiresAt,
+            //         scope: token.scope,
+            //         client: {
+            //             id: token.clientId
+            //         },
+            //         user: {
+            //             id: token.userId
+            //         }
+            //     }
+            // } catch (err) {
+            //     return false
+            // }
         
             // token.accessTokenExpiresAt = new Date(token.accessTokenExpiresAt);
             // token.refreshTokenExpiresAt = new Date(token.refreshTokenExpiresAt);
@@ -74,7 +75,24 @@ module.export = app =>{
             console.log("5"+token)
             console.log("6"+client)
             console.log("7"+user)
-            const _token = Object.assign({}, token, { user }, { client });
+            try {
+                await this.ctx.model.AccessToken.create({
+                    accessToken: token.accessToken,
+                    accessTokenExpiresAt: token.accessTokenExpiresAt,
+                    clientId: client.id,
+                    userId: user.id,
+                    scope: token.scope || ''
+                });
+                return {
+                  accessToken: token.accessToken,
+                  accessTokenExpiresAt: token.accessTokenExpiresAt,
+                  client: { id: client.id },
+                  user: user
+                }
+              } catch (err) {
+                return false
+            }
+            // const _token = Object.assign({}, token, { user }, { client });
 
             // const user = await ctx.model.AccessToken.update({userId:user.user_id},{
             //     username:username,
@@ -83,7 +101,6 @@ module.export = app =>{
 
             // nconf.set('token', _token);
             // nconf.save();
-            return _token;
         }
 
         async revokeToken(token) {}

@@ -10,13 +10,5 @@ module.exports = app =>{
         userId: {type: String}
     });
 
-    AccessTokenSchema.getAccessToken = async function (bearerToken) {
-        return await this.findOne({
-            where: { accessToken: bearerToken }
-        });
-    }
-    
-
-
     return mongoose.model('AccessToken',AccessTokenSchema,'accessToken');
 }

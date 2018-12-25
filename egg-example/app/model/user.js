@@ -15,5 +15,5 @@ module.exports = app => {
         update_time: {type:String},
     });
 
-    return mongoose.model('User',UserSchema,'student');
+    return mongoose.model('User',UserSchema,'user');
 }

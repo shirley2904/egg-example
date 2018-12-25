@@ -9,21 +9,10 @@ module.exports = app =>{
         grants: {type: String}, 
     });
 
-    ClientSchema.getClient = async function (clientId,clientId) {
-        console.warn("11111111111")
-        let params  = {
-            clientId:clientId
-        }
+    // Schema.static('getClient',function(){
+    //     console.log('getClient')
+    // })
 
-        if(clientSecret){
-            params.clientSecret = clientSecret
-        }
-
-        const client = await this.findOne({
-            where:params
-        })
-        return client
-    }
 
     return mongoose.model('Client',ClientSchema,'client');
 }
