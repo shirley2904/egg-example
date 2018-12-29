@@ -11,23 +11,25 @@ class UserController extends Controller {
 
   async authCallback() {
     // this.ctx.redirect('http://127.0.0.1:8081/#/');
+    console.log(11111111111111111111111111111111)
     console.log(this.ctx.isAuthenticated());
-    this.ctx.body = 'index';
+    this.ctx.body = {
+      "name":"aaa"
+    };
 
   }
-  
-  // async authorize() {
-  //   const query = this.ctx.querystring
-  //   console.log('query: ', query)
-  //   await this.ctx.render('oauth/login.html', {query: query})
-  // }
 
 
   async find() {
     const ctx = this.ctx;
     const userId = ctx.params.id;
     const user = await ctx.service.user.findById(userId);
-    ctx.body = user;
+    console.log(user)
+    ctx.body = {
+      code:200,
+      data:user
+    };
+    ctx.status = 200;
   }
   
   async add() {

@@ -31,3 +31,8 @@ exports.cors = {
   enable: false,
   package: 'egg-cors',
 };
+
+exports.cheerio = {
+  enable: true,
+  package: 'cheerio',
+};

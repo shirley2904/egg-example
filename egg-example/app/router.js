@@ -6,21 +6,21 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.user.index);
-  router.get('/user/:id', controller.user.find);
-  router.post('/add',controller.user.add);
-  router.post('/update',controller.user.update);
-  router.post('/del',controller.user.del);
+  router.get('/api/v1/user/:id', controller.user.find);
+  router.post('/api/v1/add',controller.user.add);
+  router.post('/api/v1/update',controller.user.update);
+  router.post('/api/v1/del',controller.user.del);
 
-
+  router.get('/getData', controller.cheerio.filterData);
 
 
    // 鉴权成功后的回调页面
-   router.get('/authCallback', controller.user.authCallback);
+   router.get('/api/v1/authCallback', controller.user.authCallback);
 
    // 渲染登录页面，用户输入账号密码
   //  router.get('/login', controller.home.login);
    // 登录校验
-   router.post('/login', app.passport.authenticate('local'));
+   router.post('/api/v1/login', app.passport.authenticate('local'));
   //  router.post('/login', app.passport.authenticate('local'),function(req,res){
   //    res.redirect('http://127.0.0.1:8081/#/')
   //  });

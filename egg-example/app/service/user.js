@@ -4,9 +4,9 @@ class UserService extends Service {
   //查找
   async findById(uid) {
     let { ctx } = this;
-    const user = await ctx.model.User.find({user_id:uid});
+    const user = await ctx.model.User.findOne({user_id:uid});
     // console.log(user)
-    return { user };
+    return {user};
   }
 
   async findByName(uname) {
