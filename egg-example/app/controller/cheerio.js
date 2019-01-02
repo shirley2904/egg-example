@@ -1,15 +1,47 @@
 const Controller = require('egg').Controller;
 const cheerio = require('cheerio');
 
-class CheerioController extends Controller {
+let times = 0;
+  let totalPage = 10;
+  let pages = [];
 
-  async filterData(){
-    let url="https://cnodejs.org/";
-    const result = await this.ctx.curl(url);
+class CheerioController extends Controller { 
 
-    var $ = cheerio.load(result.data.toString(),{decodeEntities:false});
+  async fetchData(callback){
 
-    this.ctx.body = $('.topic_title').text();
+    let self = this;
+    times++;
+
+    let promise = Promise.all([
+        await self.ctx.service.reptile.filterByPage(times),
+        await self.ctx.service.reptile.filterByPage(++times),
+        await self.ctx.service.reptile.filterByPage(++times),
+        await self.ctx.service.reptile.filterByPage(++times),
+        await self.ctx.service.reptile.filterByPage(++times)
+    ]);
+    promise.then(function(result) {
+        console.log("seekList totals:" + times);
+        pages = pages.concat(result);
+        if (times < totalPage) {
+          self.fetchData(callback)
+        } else {
+          callback(pages);
+        }
+    }).catch((error) => {
+      console.log(error)
+    });
+
+  }
+
+  async index(){
+    let _this = this;
+    new Promise(function(resolve,reject){
+      _this.fetchData(function(pages){
+        resolve(pages);
+      });
+    });
+
+    this.ctx.body = pages.slice(0,totalPage);
   }
 
 }
