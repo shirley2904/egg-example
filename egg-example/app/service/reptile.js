@@ -17,20 +17,23 @@ class ReptileService extends Service {
     dom.each(function() {
 
         let tItem = {
-            url:"",
-            title:"",
-            avator:""
+            "url":"",
+            "title":"",
+            "avator":"",
+            "count_of_visits":0
         }
 
         let url = $(this).find('.topic_title_wrapper .topic_title').attr('href')||"";
         let title = $(this).find('.topic_title_wrapper').children('a').text().replace(/[\n\r]/g,'').replace(/(^\s*)|(\s*$)/g, ""); ;
         let avator = $(this).find('.user_avatar').children('img').attr('src')||"";
+        let count_of_visits = $(this).find('.reply_count').children('.count_of_visits').text().replace(/[\n\r]/g,'').trim()||""
 
 
 
         tItem.url = `${baseUrl}${url}`;
         tItem.title = title;
         tItem.avator = avator;
+        tItem.count_of_visits = count_of_visits;
 
         dataList.push(tItem);
     })

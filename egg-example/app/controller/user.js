@@ -2,7 +2,6 @@ const Controller = require('egg').Controller;
 
 class UserController extends Controller {
   async index() {
-    console.log("2222222222222")
     // ctx.throw(401, 'no token detected in http header "Authorization"');
     this.ctx.body = 'index';
 

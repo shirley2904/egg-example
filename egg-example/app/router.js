@@ -11,7 +11,7 @@ module.exports = app => {
   router.post('/api/v1/update',controller.user.update);
   router.post('/api/v1/del',controller.user.del);
 
-  router.get('/getData', controller.cheerio.index);
+  router.get('/getData', controller.cheerio.analyse);
 
 
    // 鉴权成功后的回调页面

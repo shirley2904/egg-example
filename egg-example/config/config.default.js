@@ -27,11 +27,6 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1543475414632_3825';
 
 
-  exports.oAuth2Server = {
-      debug: config.env === 'local',
-      grants: [ 'password' ],
-  };
-
   exports.security = {
     csrf: {
       enable: false,
