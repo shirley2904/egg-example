@@ -39,6 +39,15 @@ module.exports = appInfo => {
      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
   };
 
+  config.redis = {
+    client: {
+      port: 6379,          // Redis port
+      host: '127.0.0.1',   // Redis host
+      password: 'auth',
+      db: 0,
+    },
+  }
+
 
   
   // add your config here

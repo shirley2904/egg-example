@@ -5,7 +5,8 @@ const cheerio = require('cheerio');
 class ReptileService extends Service {
 
   async filterByPage(page) {
-
+    const { ctx, app } = this;
+    let _this = this;
     let baseUrl = "https://cnodejs.org";
     let url=`${baseUrl}/?tab=all&page=${page}`;
     const result = await this.ctx.curl(url);
@@ -33,22 +34,38 @@ class ReptileService extends Service {
         tItem.avator = avator;
         tItem.count_of_visits = count_of_visits;
 
-        this.saveDatabase(tItem)
         dataList.push(tItem);
+
     })
 
+    // await app.redis.set('dataList', JSON.stringify(dataList));
+
+
+    // console.log(await app.redis.get('dataList'))
+
+    // _this.saveDatabase();
     return dataList;
   }
 
-  async saveDatabase(item){
-    let {ctx} = this;
-    const user = await ctx.model.News.create({
-      news_id:item.news_id,
-      url:item.url,
-      title:item.title,
-      avator:item.avator,
-      count_of_visits:item.count_of_visits,
+  async saveDatabase(dataList){
+    let {ctx,app } = this;
+    // let cnt = await app.redis.get('dataList')
+    dataList.forEach(async item => {
+      await ctx.model.News.create({
+          news_id:item.news_id,
+          url:item.url,
+          title:item.title,
+          avator:item.avator,
+          count_of_visits:item.count_of_visits,
+        });
     });
+    // const user = await ctx.model.News.create({
+    //   news_id:item.news_id,
+    //   url:item.url,
+    //   title:item.title,
+    //   avator:item.avator,
+    //   count_of_visits:item.count_of_visits,
+    // });
   }
  
 }

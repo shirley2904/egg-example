@@ -43,5 +43,16 @@ class UserService extends Service {
     const user = await ctx.model.User.remove({username:username});
     return { user };
   }
+
+  // async saveDatabase(item){
+  //   let {ctx} = this;
+  //   const user = await ctx.model.News.create({
+  //     news_id:item.news_id,
+  //     url:item.url,
+  //     title:item.title,
+  //     avator:item.avator,
+  //     count_of_visits:item.count_of_visits,
+  //   });
+  // }
 }
 module.exports = UserService;

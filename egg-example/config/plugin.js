@@ -36,3 +36,8 @@ exports.cheerio = {
   enable: true,
   package: 'cheerio',
 };
+
+exports.redis = {
+  enable: true,
+  package: 'egg-redis',
+};
