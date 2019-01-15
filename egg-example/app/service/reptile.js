@@ -3,7 +3,7 @@ const Service = require('egg').Service;
 const cheerio = require('cheerio');
 
 class ReptileService extends Service {
-  
+
   async filterByPage(page) {
 
     let baseUrl = "https://cnodejs.org";
@@ -28,29 +28,28 @@ class ReptileService extends Service {
         let avator = $(this).find('.user_avatar').children('img').attr('src')||"";
         let count_of_visits = $(this).find('.reply_count').children('.count_of_visits').text().replace(/[\n\r]/g,'').trim()||""
 
-
-
         tItem.url = `${baseUrl}${url}`;
         tItem.title = title;
         tItem.avator = avator;
         tItem.count_of_visits = count_of_visits;
 
+        this.saveDatabase(tItem)
         dataList.push(tItem);
     })
 
     return dataList;
   }
 
-  async saveDatabase(data){
-      let {ctx} = this;
-    //   data.forEach(item => {
-    //     await ctx.model.User.create({
-    //         username:item.username,
-    //         password:item.password
-    //     });
-    //   })
+  async saveDatabase(item){
+    let {ctx} = this;
+    const user = await ctx.model.News.create({
+      news_id:item.news_id,
+      url:item.url,
+      title:item.title,
+      avator:item.avator,
+      count_of_visits:item.count_of_visits,
+    });
   }
-
  
 }
 module.exports = ReptileService;
